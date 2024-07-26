@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuck Norris Jokes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Chuck Norris Jokes</h1>
+        <div id="joke-container">
+            <img src="{{ url_for('static', filename='chuck_norris.jpg') }}" alt="Chuck Norris" class="joke-image">
+            <p id="joke-text">{{ joke['value'] }}</p>
+        </div>
+        <button id="next-joke-button">Next Joke</button>
+    </div>
+    <script>
+        document.getElementById('next-joke-button').addEventListener('click', function() {
+            fetch('/next_joke')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('joke-text').textContent = data.value;
+                });
+        });
+    </script>
+</body>
+</html>
